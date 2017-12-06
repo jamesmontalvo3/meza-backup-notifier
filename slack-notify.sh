@@ -38,8 +38,11 @@ if [ "$1" = "success" ]; then
 	MESSAGE="Backup complete"
 	COLOR="good"
 elif [ "$1" = "retry" ]; then
-	MESSAGE="Backup attempt failed. Retrying."
+	MESSAGE="Backup attempt failed. Retrying..."
 	COLOR="warning"
+elif [ "$1" = "start" ]; then
+	MESSAGE="Backup starting"
+	COLOR="good"
 else
 	MESSAGE="Backup failed"
 	COLOR="danger"
