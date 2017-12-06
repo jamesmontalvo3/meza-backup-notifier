@@ -18,11 +18,11 @@ NOTIFY="$DIR/slack-notify.sh"
 $NOTIFY start
 
 meza deploy dkms --overwrite --skip-tags smw-data \
-	> /opt/data-meza/logs/deploy-overwrite-`date "+\%Y\%m\%d\%H\%M\%S"`.log 2>&1 \
+	> /opt/data-meza/logs/deploy-overwrite-`date "+%Y%m%d%H%M%S"`.log 2>&1 \
 	&& $NOTIFY success \
 	|| ( \
 		($NOTIFY retry && meza deploy dkms --overwrite --skip-tags smw-data) \
-		> /opt/data-meza/logs/deploy-overwrite-`date "+\%Y\%m\%d\%H\%M\%S"`.log 2>&1 \
+		> /opt/data-meza/logs/deploy-overwrite-`date "+%Y%m%d%H%M%S"`.log 2>&1 \
 		&& $NOTIFY success \
 		|| $NOTIFY fail
 	)
