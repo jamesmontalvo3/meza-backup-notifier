@@ -34,18 +34,27 @@ else
 	echo "File 'config.sh' not found! Exiting." >&2; exit 1
 fi
 
-if [ "$1" = "success" ]; then
-	MESSAGE="Backup complete"
-	COLOR="good"
-elif [ "$1" = "retry" ]; then
-	MESSAGE="Backup attempt failed. Retrying..."
-	COLOR="warning"
-elif [ "$1" = "start" ]; then
-	MESSAGE="Backup starting"
-	COLOR="good"
+if [ -z "$MESSAGE$COLOR" ]; then
+	if [ "$1" = "success" ]; then
+		MESSAGE="Backup complete"
+		COLOR="good"
+	elif [ "$1" = "retry" ]; then
+		MESSAGE="Backup attempt failed. Retrying..."
+		COLOR="warning"
+	elif [ "$1" = "start" ]; then
+		MESSAGE="Backup starting"
+		COLOR="good"
+	else
+		MESSAGE="Backup failed"
+		COLOR="danger"
+	fi
 else
-	MESSAGE="Backup failed"
-	COLOR="danger"
+	if [ -z "$MESSAGE" ]; then
+		MESSAGE="No message"
+	fi
+	if [ -z "$COLOR" ]; then
+		COLOR="good"
+	fi
 fi
 
 ansible localhost -m slack -a \

@@ -21,7 +21,7 @@ if [ ! -z "$1" ]; then
 	DEPLOY_ARGS="$1"
 fi
 
-if [ ! -z "$2"]; then
+if [ ! -z "$2" ]; then
 	LOG_PREFIX="$2"
 fi
 
