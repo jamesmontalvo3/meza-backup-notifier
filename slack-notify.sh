@@ -34,18 +34,22 @@ else
 	echo "File 'config.sh' not found! Exiting." >&2; exit 1
 fi
 
+if [ -z "$DEPLOY_TYPE" ]; then
+	$DEPLOY_TYPE = "Backup"
+fi
+
 if [ -z "$MESSAGE$COLOR" ]; then
 	if [ "$1" = "success" ]; then
-		MESSAGE="Backup complete"
+		MESSAGE="$DEPLOY_TYPE complete"
 		COLOR="good"
 	elif [ "$1" = "retry" ]; then
-		MESSAGE="Backup attempt failed. Retrying..."
+		MESSAGE="$DEPLOY_TYPE attempt failed. Retrying..."
 		COLOR="warning"
 	elif [ "$1" = "start" ]; then
-		MESSAGE="Backup starting"
+		MESSAGE="$DEPLOY_TYPE starting"
 		COLOR="good"
 	else
-		MESSAGE="Backup failed"
+		MESSAGE="$DEPLOY_TYPE failed"
 		COLOR="danger"
 	fi
 else
