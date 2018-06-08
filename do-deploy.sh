@@ -17,12 +17,11 @@ NOTIFY="$DIR/slack-notify.sh"
 
 $NOTIFY start
 
-if [ ! -z "$1" ]; then
-	DEPLOY_ARGS="$1"
-fi
+DEPLOY_ARGS="$1"
+LOG_PREFIX="$2"
 
-if [ ! -z "$2" ]; then
-	LOG_PREFIX="$2"
+if [ -z "$LOG_PREFIX" ]; then
+	LOG_PREFIX="deploy-"
 fi
 
 meza deploy "$ENVIRONMENT" $DEPLOY_ARGS \
