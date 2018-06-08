@@ -54,7 +54,7 @@ fi
 COLOR="$COLOR" MESSAGE="$MESSAGE" $NOTIFY
 
 if [ "$DEPLOY_MEZA" = "yes" ]; then
-	bash /opt/meza-backup-notifier/do-deploy.sh "" "deploy-after-config-change-"
+	bash /opt/meza-backup-notifier/do-deploy.sh "--skip-tags smw-data,search-index" "deploy-after-config-change-"
 fi
 
 # public_git_diff=$(git diff)
