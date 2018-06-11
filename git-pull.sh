@@ -18,11 +18,13 @@ COLOR="good"
 
 # Set a default
 DEPLOY_MEZA="no"
+echo "Defaulting to not deploy"
 
 public_git_status=$(git status --porcelain 2>&1)
 if [ ! -z "$public_git_status" ]; then
 	MESSAGE="Changes exist in local config-public respository. These must be fixed prior to automated updates.\n\ngit status:\n\n$(git status 2>&1)"
 	COLOR="danger"
+	echo "No deploy: changes exist locally"
 else
 
 	git_fetch=$(git fetch 2>&1)
@@ -38,15 +40,18 @@ else
 		git_diff_origin=$(git diff "$branch_name..origin/$branch_name" 2>&1)
 		if [ -z "$git_diff_origin" ]; then
 			MESSAGE="$MESSAGE\n\nNo changes from $branch_name to origin/$branch_name"
+			echo "No deploy: zero diff between local and origin"
 		else
 			MESSAGE="$MESSAGE\n\nThis server tracks the $branch_name branch. The following differences exist between $branch_name and origin/$branch_name:\n\`\`\`\n$git_diff_origin\n\`\`\`"
 			git_reset_hard=$(git reset --hard "origin/$branch_name" 2>&1)
 			MESSAGE="$MESSAGE\n\nMoving $branch_name to origin/$branch_name:\n$git_reset_hard"
 			DEPLOY_MEZA="yes"
+			echo "Deploying: changes exist"
 		fi
 
 	else
 		MESSAGE="No changes to config-public repository"
+		echo "No deploy: no change to remote repository"
 	fi
 
 fi
