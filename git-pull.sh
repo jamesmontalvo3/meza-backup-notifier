@@ -32,7 +32,7 @@ else
 		MESSAGE="Fetching changes:\n$git_fetch\n\n"
 
 		git_checkout_branch=$(git checkout "$branch_name" 2>&1)
-		if [ ! $(echo "$git_checkout_branch" | grep "Already on") ]; then
+		if [ ! "$(echo "$git_checkout_branch" | grep "Already on")" ]; then
 			MESSAGE="$MESSAGE\n\n$git_checkout_branch"
 		fi
 		# MESSAGE="$MESSAGE\n\ngit checkout $branch_name:\n$git_checkout_branch"

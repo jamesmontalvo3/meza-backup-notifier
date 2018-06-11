@@ -35,7 +35,7 @@ else
 fi
 
 if [ -z "$DEPLOY_TYPE" ]; then
-	$DEPLOY_TYPE = "Backup"
+	DEPLOY_TYPE="Backup"
 fi
 
 if [ -z "$MESSAGE$COLOR" ]; then
