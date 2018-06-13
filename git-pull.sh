@@ -50,8 +50,9 @@ else
 		fi
 
 	else
-		MESSAGE="No changes to config-public repository"
+		# MESSAGE="No changes to config-public repository"
 		echo "No deploy: no change to remote repository"
+		exit 0;
 	fi
 
 fi
