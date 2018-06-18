@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Start meza backup notifier git pull"
+echo $(date "+%Y-%m-%d %H:%M:%S")
+
 if [ -z "$1" ]; then
 	>&2 echo "Please set the desired branch name as first argument"
 	exit 1;
@@ -57,7 +60,18 @@ else
 
 fi
 
+
+MESSAGE=$(echo "$MESSAGE" | sed "s/'/\\\'/g")
+set +e
 COLOR="$COLOR" MESSAGE="$MESSAGE" $NOTIFY
+if [ $? -eq 0 ]; then
+	echo "Slack notify success"
+else
+	echo "Slack notify fail"
+	COLOR="$COLOR" MESSAGE="Failed to send initial slack notification" $NOTIFY
+fi
+set -e
+
 
 if [ "$DEPLOY_MEZA" = "yes" ]; then
 	DEPLOY_TYPE="Deploy" bash /opt/meza-backup-notifier/do-deploy.sh "" "deploy-after-config-change-"
